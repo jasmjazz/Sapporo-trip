@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>札幌雪國小旅行｜行程手帳</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFCF6">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="札幌小旅行">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFCF6; --card:#FFFFFF; --ink:#3E3A39; --ink2:#6E6866;
+  --coral:#F2A497; --yellow:#F6D27A; --mizu:#A8D3E6; --green:#B9DAA5;
+  --coral-l:#FCE5E0; --yellow-l:#FDF3D8; --mizu-l:#E5F2F8; --green-l:#EAF4E4;
+  --line:3px solid var(--ink);
+  --r-xl:32px; --r-lg:24px; --r-md:18px;
+  --pop:cubic-bezier(.34,1.56,.64,1);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{background:var(--paper);scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+img,svg{max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:12px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 14px}
+.brand{display:flex;align-items:center;gap:6px;font-size:1.05rem;white-space:nowrap;flex:none}
+.brand svg{width:30px;height:30px}
+.nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-left:auto;padding:3px 3px 5px}
+.nav::-webkit-scrollbar{display:none}
+.nav button{background:var(--card);border:2.5px solid var(--ink);border-radius:999px;padding:3px 12px;cursor:pointer;white-space:nowrap;font-size:.92rem;transition:transform .2s var(--pop),background .2s}
+.nav button.on{background:var(--yellow);transform:translateY(-2px);box-shadow:2px 2px 0 var(--ink)}
+@media (max-width:420px){.brand span{display:none}}
+
+/* ---------- layout ---------- */
+main{max-width:760px;margin:0 auto;padding:18px 16px 40px}
+section{margin-bottom:44px}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:400;margin:0 0 14px}
+.sec-title svg{width:40px;height:40px;flex:none}
+.card{background:var(--card);border:var(--line);border-radius:var(--r-lg);box-shadow:4px 4px 0 var(--ink)}
+
+/* ---------- hero ---------- */
+.hero-art{overflow:hidden;border-radius:var(--r-xl);padding:0;line-height:0}
+.hero-art svg{display:block;width:100%;height:auto}
+.hero-text{text-align:center;margin:22px 0 18px}
+.hero-text .place{display:inline-block;background:var(--mizu-l);border:2.5px solid var(--ink);border-radius:999px;padding:2px 14px;font-size:.95rem}
+.hero-text h1{font-size:clamp(2.2rem,9vw,3.3rem);font-weight:400;line-height:1.15;margin:12px 0 6px;letter-spacing:.06em}
+.hero-text .dates{margin:0;font-size:1.05rem;color:var(--ink2)}
+.cd-note{font-size:.82rem;color:var(--ink2)}
+/* ---------- flight ---------- */
+.flight{overflow:hidden}
+.flight-top{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--coral);border-bottom:var(--line);padding:10px 16px}
+.flight-top b{font-weight:400;font-size:1.1rem}
+.pill{display:inline-block;border:2.5px solid var(--ink);border-radius:999px;background:var(--card);padding:1px 10px;font-size:.85rem;white-space:nowrap}
+.route{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;padding:18px 16px 8px}
+.port{text-align:center}
+.port .code{font-size:2rem;line-height:1}
+.port .tm{font-size:1.5rem;margin-top:4px}
+.port .nm{font-size:.85rem;color:var(--ink2)}
+.route svg{width:96px;height:56px}
+.flight-rows{border-top:3px dashed var(--ink);margin:10px 0 0;padding:12px 16px 14px;display:grid;gap:6px;font-size:.92rem}
+.row{display:flex;justify-content:space-between;gap:12px}
+.row span:first-child{color:var(--ink2);flex:none}
+.row span:last-child{text-align:right}
+.ghost{margin-top:14px;border:3px dashed var(--ink);border-radius:var(--r-lg);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--paper);font-size:.92rem;color:var(--ink2)}
+
+/* ---------- day tabs ---------- */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.tab{cursor:pointer;background:var(--card);border:var(--line);border-radius:var(--r-md);padding:8px 4px 10px;text-align:center;line-height:1.25;transition:transform .25s var(--pop),box-shadow .25s,background .2s}
+.tab .d{display:block;font-size:1.45rem}
+.tab .w{font-size:.85rem;color:var(--ink2)}
+.tab .t{display:block;font-size:.8rem;margin-top:4px}
+.tab[aria-selected="true"]{background:var(--c);transform:translateY(-4px);box-shadow:4px 4px 0 var(--ink)}
+.tab[aria-selected="true"] .w{color:var(--ink)}
+.tab:active{transform:scale(.94)}
+
+.day-head{display:grid;grid-template-columns:1fr 128px;gap:12px;align-items:center;padding:14px 14px 14px 16px;background:var(--cl);margin-bottom:22px}
+.day-head h3{font-weight:400;font-size:1.25rem;line-height:1.4;margin:6px 0 8px}
+.day-head .meta{display:flex;flex-wrap:wrap;gap:6px}
+.day-head svg{width:128px;height:96px}
+.tip{grid-column:1/-1;background:var(--card);border:2.5px dashed var(--ink);border-radius:14px;padding:8px 12px;font-size:.88rem}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none;margin:0;padding:0 0 0 34px;position:relative}
+.tl::before{content:"";position:absolute;left:12px;top:14px;bottom:24px;border-left:3px dashed var(--ink)}
+.ti{position:relative;margin-bottom:12px}
+.dot{position:absolute;left:-34px;top:14px;width:27px;height:27px;border-radius:50%;border:3px solid var(--ink);background:var(--c);display:grid;place-items:center}
+.dot svg{width:15px;height:15px}
+.ti-card{background:var(--card);border:var(--line);border-radius:var(--r-md);padding:10px 14px 12px;box-shadow:3px 3px 0 var(--ink)}
+.ti.must .ti-card{background:#FFF5F2}
+.ti-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.time{font-size:.95rem;font-variant-numeric:tabular-nums;background:var(--paper);border:2px solid var(--ink);border-radius:10px;padding:0 8px}
+.ti h4{font-weight:400;font-size:1.13rem;margin:6px 0 2px;line-height:1.4}
+.ti ul{margin:4px 0 0;padding-left:1.1em;font-size:.92rem;color:var(--ink2)}
+.ti ul li{margin:1px 0}
+.bd{font-size:.78rem;border:2px solid var(--ink);border-radius:999px;padding:0 8px;line-height:1.6;white-space:nowrap}
+.bd.must{background:var(--coral)}
+.bd.booked{background:var(--yellow)}
+.bd.self{background:var(--green-l)}
+.bd.public{background:var(--mizu)}
+main > section:not(.on){display:none}
+main > section.on.enter{animation:pop .45s var(--pop) both}
+.bd.reserve{background:var(--card);border-style:dashed}
+.mv{margin:-2px 0 12px}
+.chip{max-width:100%;display:inline-flex;align-items:center;gap:6px;border:2.5px solid var(--ink);border-radius:999px;padding:2px 12px 2px 4px;font-size:.84rem;line-height:1.5;background:var(--k)}
+.chip b{font-weight:400;white-space:nowrap;flex:none}
+.chip .tx{min-width:0}
+.chip .tm{white-space:nowrap}
+.chip .ic{width:22px;height:22px;border-radius:50%;background:var(--card);border:2px solid var(--ink);display:grid;place-items:center;flex:none}
+.chip .ic svg{width:15px;height:15px}
+.chip.car,.chip.tour,.chip.taxi{--k:var(--yellow)}
+.chip.subway{--k:var(--mizu)}
+.mv{display:flex;flex-wrap:wrap;gap:6px} .chip.walk{--k:var(--green)} .chip.train{--k:var(--mizu)}
+.chip.rope{--k:var(--coral)} .chip.plane{--k:var(--coral)}
+.ti-card .chip{margin-top:6px}
+.infobox{margin-top:10px;border:2.5px dashed var(--ink);border-radius:14px;background:var(--coral-l);padding:8px 12px;font-size:.87rem}
+.infobox b{font-weight:400;display:block;margin-bottom:2px}
+.hotel-body h3 .maplink,.ti h4 .maplink{color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--coral)}
+.infobox a{color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--coral)}
+.ti .infobox ul{color:var(--ink);padding-left:1.1em;margin:0;font-size:.87rem}
+
+.flight + .flight{margin-top:14px}
+.flight-top.go{background:var(--green)}
+.tabs{gap:8px}
+.tab .d{font-size:1.3rem}
+.tab.free{border-style:dashed;background:var(--paper)}
+.tab.free[aria-selected="true"]{background:var(--c)}
+.free-note{margin:0;color:var(--ink2);font-size:.95rem}
+.bd.along{background:var(--mizu-l)}
+
+/* bounce on day switch */
+.bounce .day-head{animation:pop .55s var(--pop) both}
+.bounce .tl > li{animation:hop .5s var(--pop) both;animation-delay:calc(var(--i) * 45ms + 80ms)}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+@keyframes hop{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+
+/* ---------- packing ---------- */
+.pack{grid-column:1/-1;margin-top:22px;padding:14px;background:var(--green-l)}
+.pack-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pack-head h2{font-weight:400;font-size:1.25rem;margin:0;flex:none}
+.pack-head svg{width:34px;height:34px;flex:none}
+.prog{flex:1;display:flex;align-items:center;gap:8px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.bar{flex:1;height:14px;border:2.5px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .4s var(--pop)}
+.pgroup{margin:12px 0 6px;font-size:.92rem;color:var(--ink2)}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.plist label{position:relative;display:flex;gap:10px;align-items:flex-start;background:var(--card);border:2.5px solid var(--ink);border-radius:14px;padding:7px 12px;cursor:pointer}
+.plist input{position:absolute;opacity:0;width:1px;height:1px}
+.box{flex:none;width:22px;height:22px;border:2.5px solid var(--ink);border-radius:7px;background:var(--paper);display:grid;place-items:center;margin-top:2px;transition:background .2s}
+.box svg{width:15px;height:15px;opacity:0;transform:scale(.4);transition:transform .3s var(--pop),opacity .2s}
+.plist input:checked + .box{background:var(--green)}
+.plist input:checked + .box svg{opacity:1;transform:none}
+.plist input:checked ~ .txt{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink2)}
+.plist input:focus-visible + .box{outline:3px solid var(--ink);outline-offset:2px}
+.txt small{display:block;color:var(--ink2);font-size:.8rem;text-decoration:none}
+.reset{display:block;margin:12px auto 2px;background:var(--card);border:2.5px solid var(--ink);border-radius:999px;padding:3px 16px;cursor:pointer;font-size:.88rem}
+
+/* ---------- fund ---------- */
+.fund-sum{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:14px;background:var(--mizu-l)}
+.sum-box{background:var(--card);border:2.5px solid var(--ink);border-radius:16px;padding:8px 12px}
+.sum-box span{display:block;font-size:.82rem;color:var(--ink2)}
+.sum-box b{font-weight:400;font-size:1.35rem;font-variant-numeric:tabular-nums;line-height:1.3}
+.sum-box small{display:block;font-size:.78rem;color:var(--ink2);font-variant-numeric:tabular-nums}
+.sum-box.left{background:var(--yellow-l)}
+.sum-box.left.neg b{color:#B4473A}
+.fund-set{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.88rem;align-items:center}
+.fund-set label{display:flex;align-items:center;gap:6px}
+.fund-card{margin-top:14px;padding:14px}
+.fund-card h3{font-weight:400;font-size:1.1rem;margin:0 0 10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:2.5px solid var(--ink);border-radius:999px;overflow:hidden;margin-bottom:10px}
+.seg button{border:0;background:var(--card);padding:5px 0;cursor:pointer}
+.seg button + button{border-left:2.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--coral)}
+.seg button[data-kind="in"][aria-pressed="true"]{background:var(--green)}
+.frow{display:grid;grid-template-columns:92px 1fr;gap:8px;margin-bottom:8px}
+.fin{font:inherit;color:var(--ink);background:var(--paper);border:2.5px solid var(--ink);border-radius:12px;padding:6px 10px;width:100%;min-width:0}
+.fund-set .fin{width:84px;padding:3px 8px}
+.btn{font:inherit;background:var(--yellow);border:2.5px solid var(--ink);border-radius:999px;padding:6px 18px;cursor:pointer;box-shadow:2px 2px 0 var(--ink);width:100%}
+.btn:disabled{opacity:.5;cursor:default}
+.fund-msg{font-size:.88rem;color:var(--ink2);margin:8px 2px 0}
+.fday{margin:14px 0 4px;font-size:.95rem;display:flex;justify-content:space-between;color:var(--ink2)}
+.fitem{display:flex;align-items:center;gap:10px;background:var(--card);border:2.5px solid var(--ink);border-radius:14px;padding:8px 10px 8px 12px;margin-bottom:6px}
+.fitem .nm{flex:1;min-width:0;overflow-wrap:anywhere}
+.fitem .am{font-variant-numeric:tabular-nums;white-space:nowrap}
+.fitem.in .am{color:#3F7A2E}
+.fitem .bd{flex:none}
+.del{flex:none;width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;background:var(--paper);cursor:pointer;line-height:1;font-size:1rem}
+.fund-code{margin-top:14px;padding:14px}
+.fund-code h3{font-weight:400;font-size:1.1rem;margin:0 0 6px}
+.fund-code .fund-note{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+#fund.needcode .fund-sum,#fund.needcode #fForm,#fund.needcode #fList{display:none}
+.empty{text-align:center;color:var(--ink2);padding:16px 0 4px;margin:0}
+
+/* ---------- hotel ---------- */
+.hotel{overflow:hidden}
+.hotel-art{background:var(--mizu-l);border-bottom:var(--line);line-height:0}
+.hotel-art svg{width:100%;height:auto;display:block}
+.hotel-body{padding:14px 16px 16px}
+.hotel-body h3{font-weight:400;font-size:1.3rem;margin:0 0 8px}
+.hotel-body .row{padding:6px 0;border-bottom:2px dotted var(--ink2);font-size:.92rem}
+.hotel-body .row:last-child{border-bottom:0}
+.hotel-body .tel{color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+
+footer{text-align:center;padding:10px 16px 40px;color:var(--ink2);font-size:.9rem}
+footer svg{width:70px;height:70px;display:block;margin:0 auto 4px}
+
+/* ---------- illustration motion ---------- */
+svg .float{animation:float 4s ease-in-out infinite}
+svg .drift{animation:drift 14s ease-in-out infinite alternate}
+svg .drift2{animation:drift 18s ease-in-out infinite alternate-reverse}
+svg .ride{animation:ride 9s ease-in-out infinite alternate}
+svg .swing{animation:swing 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+svg .waddle{animation:waddle 1.1s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+svg .steam{animation:steam 2.4s ease-in-out infinite}
+svg .twinkle{animation:twinkle 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+svg .flake{animation:fall linear infinite}
+@keyframes float{50%{transform:translateY(-5px)}}
+@keyframes drift{to{transform:translateX(26px)}}
+@keyframes ride{to{transform:translate(30px,-38px)}}
+@keyframes swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes waddle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes steam{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+@keyframes twinkle{50%{transform:scale(.7)}}
+@keyframes fall{0%{transform:translate(0,-20px)}100%{transform:translate(var(--dx,10px),290px)}}
+
+@media (min-width:640px){
+  main{padding-top:26px}
+  .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:center}
+  .hero-art{grid-row:span 2}
+  .hero-text{margin:0;text-align:left}
+  .day-head{grid-template-columns:1fr 160px}
+  .day-head svg{width:160px;height:120px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  svg .flake{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/><g stroke="#3E3A39" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M20 10v20M11.3 15l17.4 10M11.3 25l17.4-10"/><path d="M17 11.5l3 2.5 3-2.5M17 28.5l3-2.5 3 2.5"/></g></svg>
+      <span>札幌雪國小旅行</span>
+    </div>
+    <nav class="nav" aria-label="頁面選單">
+      <button type="button" data-go="home" class="on">首頁</button>
+      <button type="button" data-go="flight">航班</button>
+      <button type="button" data-go="stay">住宿</button>
+      <button type="button" data-go="plan">行程</button>
+      <button type="button" data-go="fund">公費</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ========== HOME ========== -->
+  <section id="home" class="hero on">
+    <div class="card hero-art">
+      <svg viewBox="0 0 400 270" role="img" aria-label="插圖：藻岩山纜車、札幌時計台、飛機與雪地裡的小企鵝">
+        <g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+          <rect width="400" height="270" fill="#E5F2F8" stroke="none"/>
+          <circle cx="336" cy="54" r="22" fill="#F6D27A"/>
+          <g class="drift"><path d="M28 74a12 12 0 0 1 4-23a16 16 0 0 1 28-8a14 14 0 0 1 26 6a12 12 0 0 1 12 25z" fill="#fff"/></g>
+          <g class="drift2"><path d="M236 46a10 10 0 0 1 3-19a13 13 0 0 1 23-6a11 11 0 0 1 21 5a10 10 0 0 1 9 20z" fill="#fff"/></g>
+          <!-- plane -->
+          <g transform="translate(150 28)">
+            <g class="float">
+              <path d="M-40 14h-26M-34 22h-16" fill="none" stroke-dasharray="2 7"/>
+              <path d="M26 14L34 0H40L37 14" fill="#A8D3E6"/>
+              <path d="M0 14Q0 6 9 6H48Q60 6 62 14Q60 22 48 22H9Q0 22 0 14Z" fill="#fff"/>
+              <path d="M4 9L0 -4H8L16 7" fill="#F2A497"/>
+              <path d="M24 15L34 30H41L37 15Z" fill="#A8D3E6"/>
+              <path d="M53 10.5q4 0 5 3.5h-6z" fill="#A8D3E6" stroke-width="2"/>
+              <g fill="#3E3A39" stroke="none"><circle cx="20" cy="12" r="1.8"/><circle cx="28" cy="12" r="1.8"/><circle cx="36" cy="12" r="1.8"/><circle cx="44" cy="12" r="1.8"/></g>
+            </g>
+          </g>
+          <!-- mountains (藻岩山) -->
+          <path d="M-10 214L110 78L150 106L190 88L310 214Z" fill="#B9DAA5"/>
+          <path d="M110 78L81 110L93 104L105 113L119 103L131 111L143 101Z" fill="#fff"/>
+          <path d="M190 88L161 103L173 101L183 109L196 100L208 106Z" fill="#fff"/>
+          <!-- ropeway -->
+          <path d="M8 206L112 74" fill="none"/>
+          <path d="M22 214V190M17 192h10" fill="none"/>
+          <g class="ride">
+            <g class="swing">
+              <path d="M40 165v10" fill="none"/>
+              <rect x="28" y="175" width="24" height="21" rx="6" fill="#F2A497"/>
+              <rect x="32" y="179" width="16" height="7" rx="2" fill="#fff" stroke-width="2.4"/>
+            </g>
+          </g>
+          <!-- ground -->
+          <path d="M0 210Q100 190 200 205T400 198V270H0Z" fill="#fff"/>
+          <!-- trees -->
+          <g transform="translate(236 206)"><path d="M0 -50L-16 -16H16Z" fill="#B9DAA5"/><path d="M0 -36L-20 0H20Z" fill="#B9DAA5"/><path d="M0 -50L-7 -36L0 -40L7 -36Z" fill="#fff" stroke-width="2.4"/><path d="M-3 0v8h6V0" fill="#F6D27A"/></g>
+          <g transform="translate(266 214) scale(.7)"><path d="M0 -50L-16 -16H16Z" fill="#B9DAA5"/><path d="M0 -36L-20 0H20Z" fill="#B9DAA5"/><path d="M-3 0v8h6V0" fill="#F6D27A"/></g>
+          <!-- 時計台 -->
+          <rect x="318" y="114" width="26" height="46" fill="#fff"/>
+          <path d="M313 118L331 94L349 118Z" fill="#F2A497"/>
+          <path d="M331 94V82l9 3-9 3" fill="#F6D27A" stroke-width="2.4"/>
+          <circle cx="331" cy="134" r="9" fill="#F6D27A"/>
+          <path d="M331 134v-5M331 134h4" stroke-width="2.4"/>
+          <rect x="292" y="174" width="78" height="44" fill="#fff"/>
+          <path d="M284 176L331 148L378 176Z" fill="#F2A497"/>
+          <rect x="300" y="184" width="11" height="14" rx="2" fill="#A8D3E6" stroke-width="2.4"/>
+          <rect x="351" y="184" width="11" height="14" rx="2" fill="#A8D3E6" stroke-width="2.4"/>
+          <path d="M323 218v-20h16v20" fill="#F6D27A"/>
+          <path d="M276 222q50 -10 110 -4" fill="none"/>
+          <!-- penguin -->
+          <g transform="translate(176 200)">
+            <g class="waddle">
+              <ellipse cx="0" cy="0" rx="13" ry="17" fill="#3E3A39"/>
+              <ellipse cx="0" cy="4" rx="8.5" ry="11.5" fill="#fff" stroke="none"/>
+              <circle cx="-4" cy="-7" r="1.8" fill="#fff" stroke="none"/><circle cx="4" cy="-7" r="1.8" fill="#fff" stroke="none"/>
+              <path d="M-3 -3h6l-3 4z" fill="#F6D27A" stroke-width="1.8"/>
+              <ellipse cx="-5" cy="17" rx="4" ry="2" fill="#F6D27A" stroke-width="2"/><ellipse cx="5" cy="17" rx="4" ry="2" fill="#F6D27A" stroke-width="2"/>
+              <circle cx="-6" cy="-1" r="2" fill="#F2A497" stroke="none"/><circle cx="6" cy="-1" r="2" fill="#F2A497" stroke="none"/>
+            </g>
+          </g>
+          <g id="snow" stroke-width="1.6"></g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-text">
+      <span class="place">北海道・札幌</span>
+      <h1>札幌雪國<br>小旅行</h1>
+      <p class="dates">2026 年 12 月 23 日（三）～ 28 日（一）</p>
+    </div>
+
+    <div class="card pack">
+      <div class="pack-head">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="11" width="28" height="24" rx="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/><path d="M15 11V7h10v4M6 21h28" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><rect x="17" y="18" width="6" height="6" rx="2" fill="#fff" stroke="#3E3A39" stroke-width="2.4"/></svg>
+        <h2>行李清單</h2>
+        <div class="prog"><div class="bar"><i id="pBar"></i></div><span id="pTxt">0 / 0</span></div>
+      </div>
+      <div id="pList"></div>
+      <button class="reset" id="pReset" type="button">清除所有勾選</button>
+    </div>
+
+  </section>
+
+  <!-- ========== FLIGHT ========== -->
+  <section id="flight">
+    <h2 class="sec-title">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><path d="M30 20c0-1-.8-1.8-1.8-1.8H23L17 10h-2.4l3 8.2H12.4L10.6 16H9l1.2 4L9 24h1.6l1.8-2.2h5.2l-3 8.2H17l6-8.2h5.2c1 0 1.8-.8 1.8-1.8z" fill="#fff" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/></svg>
+      航班資訊
+    </h2>
+    <div class="card flight">
+      <div class="flight-top go"><b>去程　JX318</b><span class="pill">12/23（三）</span></div>
+      <div class="route">
+        <div class="port"><div class="code">RMQ</div><div class="tm">10:20</div><div class="nm">臺中國際機場<br>第 2 航廈</div></div>
+        <svg viewBox="0 0 96 56" aria-hidden="true">
+          <path d="M6 44Q48 0 90 44" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-dasharray="3 6" stroke-linecap="round"/>
+          <g class="float"><g transform="translate(36 6)"><path d="M24 11c0-1-.8-1.8-1.8-1.8H17L11 1H8.6l3 8.2H6.4L4.6 7H3l1.2 4L3 15h1.6l1.8-2.2h5.2l-3 8.2H11l6-8.2h5.2c1 0 1.8-.8 1.8-1.8z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/></g></g>
+          <circle cx="6" cy="44" r="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><circle cx="90" cy="44" r="4" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+        </svg>
+        <div class="port"><div class="code">CTS</div><div class="tm">15:00</div><div class="nm">新千歲機場<br>國際線航廈</div></div>
+      </div>
+      <div class="flight-rows">
+        <div class="row"><span>飛行時間</span><span>3 小時 40 分，直飛</span></div>
+        <div class="row"><span>機型・艙等</span><span>Airbus A321neo・經濟艙</span></div>
+        <div class="row"><span>建議抵達機場</span><span>08:20（起飛前 2 小時）</span></div>
+      </div>
+    </div>
+    <div class="card flight">
+      <div class="flight-top"><b>回程　JX319</b><span class="pill">12/28（一）</span></div>
+      <div class="route">
+        <div class="port"><div class="code">CTS</div><div class="tm">16:00</div><div class="nm">新千歲機場<br>國際線航廈</div></div>
+        <svg viewBox="0 0 96 56" aria-hidden="true">
+          <path d="M6 44Q48 0 90 44" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-dasharray="3 6" stroke-linecap="round"/>
+          <g class="float"><g transform="translate(36 6)"><path d="M24 11c0-1-.8-1.8-1.8-1.8H17L11 1H8.6l3 8.2H6.4L4.6 7H3l1.2 4L3 15h1.6l1.8-2.2h5.2l-3 8.2H11l6-8.2h5.2c1 0 1.8-.8 1.8-1.8z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.2" stroke-linejoin="round"/></g></g>
+          <circle cx="6" cy="44" r="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><circle cx="90" cy="44" r="4" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+        </svg>
+        <div class="port"><div class="code">RMQ</div><div class="tm">19:55</div><div class="nm">臺中國際機場<br>第 2 航廈</div></div>
+      </div>
+      <div class="flight-rows">
+        <div class="row"><span>飛行時間</span><span>4 小時 55 分，直飛</span></div>
+        <div class="row"><span>機型・艙等</span><span>Airbus A321neo・經濟艙</span></div>
+        <div class="row"><span>建議抵達機場</span><span>13:30 前</span></div>
+      </div>
+    </div>
+    <p class="cd-note" style="margin:12px 4px 0">時間皆為當地時間，日本比台灣快 1 小時。</p>
+  </section>
+
+  <!-- ========== PLAN ========== -->
+  <section id="plan">
+    <h2 class="sec-title">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="8" width="30" height="27" rx="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/><path d="M5 17h30M13 5v7M27 5v7" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/><circle cx="14" cy="25" r="2.4" fill="#3E3A39"/><circle cx="20" cy="25" r="2.4" fill="#F2A497" stroke="#3E3A39" stroke-width="1.6"/><circle cx="26" cy="25" r="2.4" fill="#3E3A39"/></svg>
+      每日行程
+    </h2>
+    <div class="tabs" role="tablist" aria-label="選擇日期" id="tabs"></div>
+    <div id="dayPanel" role="tabpanel"></div>
+  </section>
+
+  <!-- ========== STAY ========== -->
+  <section id="stay">
+    <h2 class="sec-title">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 18L20 6l14 12" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><rect x="9" y="17" width="22" height="18" rx="3" fill="#fff" stroke="#3E3A39" stroke-width="3"/><rect x="17" y="25" width="6" height="10" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.4"/></svg>
+      住宿資訊
+    </h2>
+    <div class="card hotel">
+      <div class="hotel-art">
+        <svg viewBox="0 0 400 150" aria-hidden="true">
+          <g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+            <g class="drift"><path d="M40 52a10 10 0 0 1 3-19a13 13 0 0 1 23-6a11 11 0 0 1 21 5a10 10 0 0 1 9 20z" fill="#fff"/></g>
+            <g class="twinkle"><path d="M320 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#F6D27A" stroke-width="2.4"/></g>
+            <rect x="140" y="26" width="120" height="114" rx="6" fill="#fff"/>
+            <rect x="150" y="16" width="100" height="16" rx="5" fill="#A8D3E6"/>
+            <g fill="#F6D27A" stroke-width="2.4">
+              <rect x="154" y="44" width="16" height="13" rx="3"/><rect x="178" y="44" width="16" height="13" rx="3" fill="#E5F2F8"/><rect x="206" y="44" width="16" height="13" rx="3" fill="#E5F2F8"/><rect x="230" y="44" width="16" height="13" rx="3"/>
+              <rect x="154" y="66" width="16" height="13" rx="3" fill="#E5F2F8"/><rect x="178" y="66" width="16" height="13" rx="3"/><rect x="206" y="66" width="16" height="13" rx="3"/><rect x="230" y="66" width="16" height="13" rx="3" fill="#E5F2F8"/>
+              <rect x="154" y="88" width="16" height="13" rx="3"/><rect x="178" y="88" width="16" height="13" rx="3" fill="#E5F2F8"/><rect x="206" y="88" width="16" height="13" rx="3"/><rect x="230" y="88" width="16" height="13" rx="3"/>
+            </g>
+            <path d="M184 140v-22q16-10 32 0v22" fill="#F2A497"/>
+            <path d="M0 140h400" fill="none"/>
+            <path d="M60 140v-26M48 124h24" fill="none"/>
+            <g transform="translate(96 140)"><path d="M0 -40L-14 -12H14Z" fill="#B9DAA5"/><path d="M0 -28L-18 0H18Z" fill="#B9DAA5"/></g>
+            <g transform="translate(310 140)"><path d="M0 -40L-14 -12H14Z" fill="#B9DAA5"/><path d="M0 -28L-18 0H18Z" fill="#B9DAA5"/></g>
+            <g transform="translate(350 128)"><circle cx="0" cy="-14" r="8" fill="#fff"/><circle cx="0" cy="0" r="11" fill="#fff"/><circle cx="-3" cy="-15" r="1.2" fill="#3E3A39" stroke="none"/><circle cx="3" cy="-15" r="1.2" fill="#3E3A39" stroke="none"/><path d="M-8 -7h16" stroke="#F2A497" stroke-width="3.5"/></g>
+          </g>
+        </svg>
+      </div>
+      <div class="hotel-body">
+        <h3><a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E6%80%A5EX%E3%83%9B%E3%83%86%E3%83%AB%E6%9C%AD%E5%B9%8C" target="_blank" rel="noopener">京急 EX Hotel 札幌</a></h3>
+        <div class="row"><span>住宿期間</span><span>12/23 入住，12/28 退房（共 5 晚）</span></div>
+        <div class="row"><span>地址</span><span>〒060-0806<br>北海道札幌市北区北6条西4-2-6</span></div>
+        <div class="row"><span>電話</span><span><a class="tel" href="tel:+81117373910">011-737-3910</a></span></div>
+        <div class="row"><span>JR</span><span>JR 札幌站北口（西剪票口），步行約 1 分鐘</span></div>
+        <div class="row"><span>地鐵</span><span>地鐵札幌站 1 號出口，步行約 5 分鐘</span></div>
+      </div>
+    </div>
+  </section>
+  <!-- ========== FUND ========== -->
+  <section id="fund">
+    <h2 class="sec-title">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="11" width="30" height="22" rx="7" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/><path d="M5 18h30" stroke="#3E3A39" stroke-width="3"/><circle cx="27" cy="25.5" r="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.4"/><path d="M12 11l14-5 2 5" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></svg>
+      公費計算
+    </h2>
+    <div class="card fund-sum">
+      <div class="sum-box"><span>已收公費</span><b id="fIn">¥0</b><small id="fInT"></small></div>
+      <div class="sum-box"><span>已支出</span><b id="fOut">¥0</b><small id="fOutT"></small></div>
+      <div class="sum-box left" id="fLeftBox"><span>剩餘</span><b id="fLeft">¥0</b><small id="fLeftT"></small></div>
+      <div class="sum-box"><span>每人分攤支出</span><b id="fPer">—</b><small id="fPerT"></small></div>
+      <div class="fund-set">
+        <label>人數 <input class="fin" id="fPeople" type="number" min="1" step="1" inputmode="numeric" placeholder="人"></label>
+      </div>
+    </div>
+
+    <div class="card fund-card" id="fForm">
+      <h3>新增一筆</h3>
+      <div class="seg" role="group" aria-label="類型">
+        <button type="button" data-kind="out" aria-pressed="true">支出</button>
+        <button type="button" data-kind="in" aria-pressed="false">收公費</button>
+      </div>
+      <div class="frow"><select class="fin" id="fDate" aria-label="日期"></select><input class="fin" id="fName" type="text" maxlength="40" placeholder="項目，例如 晚餐" aria-label="項目"></div>
+      <div class="frow"><span style="align-self:center;text-align:center">日圓 ¥</span><input class="fin" id="fAmt" type="number" min="1" step="1" inputmode="numeric" placeholder="金額" aria-label="金額（日圓）"></div>
+      <button class="btn" id="fAdd" type="button">新增</button>
+      <p class="fund-msg" id="fMsg" hidden></p>
+    </div>
+
+    <div id="fList"><p class="empty">載入中…</p></div>
+    <div class="card fund-code" id="fCodeBox" hidden>
+      <h3>輸入旅行代碼</h3>
+      <p class="fund-note">同行的人輸入同一組代碼，就會看到同一本公費帳。代碼請私下傳給朋友，不要公開。</p>
+      <div class="frow"><input class="fin" id="fCode" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="至少 16 個英文或數字" style="grid-column:1/-1"></div>
+      <button class="btn" id="fCodeOk" type="button">開始使用</button>
+      <p class="fund-msg" id="fCodeMsg" hidden></p>
+    </div>
+    <button class="reset" id="fCodeReset" type="button" hidden>更換旅行代碼</button>
+  </section>
+</main>
+
+<footer>
+  <svg viewBox="0 0 70 70" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3"><circle cx="35" cy="24" r="12" fill="#fff"/><circle cx="35" cy="50" r="16" fill="#fff"/><path d="M23 33h24" stroke="#F2A497" stroke-width="5"/><path d="M33 26l2 3 2-3" fill="#F6D27A" stroke-width="2"/></g><circle cx="31" cy="21" r="1.6" fill="#3E3A39"/><circle cx="39" cy="21" r="1.6" fill="#3E3A39"/></svg>
+  一路順風，北海道見！
+</footer>
+
+<script src="firebase-config.js"></script>
+<script>
+/* ---------- icons ---------- */
+const S = 'stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
+const ICON = {
+  car:`<svg viewBox="0 0 24 24" ${S} fill="none"><path d="M3 16V9.5A2.5 2.5 0 0 1 5.5 7H15l4.5 4.5H20a1 1 0 0 1 1 1V16z" fill="#fff"/><path d="M3 11.5h16"/><circle cx="7.5" cy="16.5" r="2" fill="#F6D27A"/><circle cx="16.5" cy="16.5" r="2" fill="#F6D27A"/></svg>`,
+  walk:`<svg viewBox="0 0 24 24" ${S} fill="none"><circle cx="13" cy="4.5" r="2" fill="#B9DAA5"/><path d="M12.5 8l-2 7 3 3v3.5M10.5 15L8 21M12.5 8l-4 2.5V14M12.5 8l2.5 3.5 3 1"/></svg>`,
+  train:`<svg viewBox="0 0 24 24" ${S} fill="none"><rect x="5" y="3" width="14" height="14" rx="3.5" fill="#A8D3E6"/><path d="M5 10h14"/><circle cx="9" cy="13.5" r=".8" fill="#3E3A39"/><circle cx="15" cy="13.5" r=".8" fill="#3E3A39"/><path d="M8.5 21l2-4M15.5 21l-2-4"/></svg>`,
+  rope:`<svg viewBox="0 0 24 24" ${S} fill="none"><path d="M2 4l20 5"/><path d="M12 6.5v3.5"/><rect x="6.5" y="10" width="11" height="10" rx="3" fill="#F2A497"/><path d="M6.5 14h11"/></svg>`,
+  plane:`<svg viewBox="0 0 24 24" ${S} fill="none"><path d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#F2A497"/></svg>`,
+  star:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z" fill="#fff" stroke="#3E3A39" stroke-width="2.4" stroke-linejoin="round"/></svg>`,
+  check:`<svg viewBox="0 0 24 24" fill="none" stroke="#3E3A39" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`
+};
+ICON.tour = ICON.car;
+ICON.taxi = ICON.car;
+ICON.subway = ICON.train;
+const MODE = {subway:'地鐵',taxi:'計程車',tour:'跟團',car:'包車',walk:'步行',train:'JR',rope:'纜車',plane:'飛機'};
+const BADGE = {along:'<span class="bd along">順路</span>',must:'<span class="bd must">★ 必去</span>',booked:'<span class="bd booked">已預約</span>',self:'<span class="bd self">自費</span>',public:'<span class="bd public">公費</span>',reserve:'<span class="bd reserve">需先訂位</span>'};
+
+/* ---------- day illustrations ---------- */
+const ILLUS = {
+  penguin:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <path d="M3 92Q80 78 157 90V100Q157 117 140 117H20Q3 117 3 100Z" fill="#E5F2F8"/>
+    <g transform="translate(112 92)"><path d="M0 -66L-13 -40H13Z" fill="#B9DAA5"/><path d="M0 -52L-19 -22H19Z" fill="#B9DAA5"/><path d="M0 -36L-24 0H24Z" fill="#B9DAA5"/><path d="M-3 0v8h6V0" fill="#F6D27A"/></g>
+    <g class="twinkle"><path d="M112 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#F6D27A" stroke-width="2"/></g>
+    <g transform="translate(50 80)"><g class="waddle">
+      <ellipse cx="0" cy="0" rx="17" ry="22" fill="#3E3A39"/><ellipse cx="0" cy="5" rx="11" ry="15" fill="#fff" stroke="none"/>
+      <circle cx="-5" cy="-9" r="2.2" fill="#fff" stroke="none"/><circle cx="5" cy="-9" r="2.2" fill="#fff" stroke="none"/>
+      <path d="M-4 -4h8l-4 5z" fill="#F6D27A" stroke-width="2"/><circle cx="-8" cy="-1" r="2.6" fill="#F2A497" stroke="none"/><circle cx="8" cy="-1" r="2.6" fill="#F2A497" stroke="none"/>
+      <ellipse cx="-6" cy="22" rx="5" ry="2.6" fill="#F6D27A" stroke-width="2"/><ellipse cx="6" cy="22" rx="5" ry="2.6" fill="#F6D27A" stroke-width="2"/>
+    </g></g></g></svg>`,
+  ropeway:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <circle cx="128" cy="28" r="12" fill="#F6D27A"/>
+    <g class="twinkle"><path d="M30 18l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#F6D27A" stroke-width="2"/></g>
+    <path d="M3 104L80 40L157 104V100Q157 117 140 117H20Q3 117 3 100Z" fill="#B9DAA5"/>
+    <path d="M80 40L64 54L72 52L80 58L88 52L96 54Z" fill="#fff"/>
+    <path d="M10 100L82 34" fill="none"/>
+    <g transform="translate(44 69)"><g class="swing"><path d="M0 0v8" fill="none"/><rect x="-11" y="8" width="22" height="18" rx="5" fill="#F2A497"/><rect x="-7" y="12" width="14" height="6" rx="2" fill="#fff" stroke-width="2.2"/></g></g>
+    <g fill="#F6D27A" stroke-width="2"><circle cx="98" cy="96" r="3"/><circle cx="112" cy="90" r="3"/><circle cx="124" cy="100" r="3"/><circle cx="104" cy="106" r="3"/></g>
+    </g></svg>`,
+  arrive:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <path d="M3 98L40 64L62 80L92 52L157 98V100Q157 117 140 117H20Q3 117 3 100Z" fill="#B9DAA5"/>
+    <path d="M92 52L80 63L87 61L93 67L100 60L106 62Z" fill="#fff"/>
+    <path d="M40 64L31 72L38 71L44 75L48 70Z" fill="#fff"/>
+    <path d="M22 108h116" fill="none" stroke-dasharray="8 9"/>
+    <g class="drift"><path d="M14 40a7 7 0 0 1 2-13a9 9 0 0 1 16-4a8 8 0 0 1 15 4a7 7 0 0 1 6 13z" fill="#fff" stroke-width="2.4"/></g>
+    <g transform="translate(98 6) rotate(14 24 24) scale(2)"><g class="float"><path d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#A8D3E6" stroke-width="1.4"/></g></g>
+    </g></svg>`,
+  free:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <path d="M3 90Q80 78 157 90V100Q157 117 140 117H20Q3 117 3 100Z" fill="#E5F2F8"/>
+    <g class="twinkle"><path d="M30 24l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#F6D27A" stroke-width="2"/></g>
+    <g fill="#fff" stroke-width="1.8"><circle cx="128" cy="26" r="3"/><circle cx="116" cy="44" r="2.5"/><circle cx="40" cy="56" r="2.5"/></g>
+    <g transform="translate(80 0)"><g class="waddle">
+      <circle cx="0" cy="82" r="20" fill="#fff"/>
+      <circle cx="0" cy="50" r="14" fill="#fff"/>
+      <path d="M-10 37V25h20v12" fill="#F6D27A"/><path d="M-16 37h32" fill="none"/>
+      <path d="M-12 61q12 6 24 0" fill="none" stroke="#F2A497" stroke-width="5"/>
+      <circle cx="-5" cy="48" r="1.8" fill="#3E3A39" stroke="none"/><circle cx="5" cy="48" r="1.8" fill="#3E3A39" stroke="none"/>
+      <path d="M-2 52l2 3 2-3" fill="#F2A497" stroke-width="2"/>
+    </g></g>
+    </g></svg>`,
+  onsen:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <path d="M60 72L100 30L140 72Z" fill="#B9DAA5"/>
+    <path d="M100 30L88.6 42L95 40L100 46L106 40L111.4 42Z" fill="#fff"/>
+    <path d="M3 72H157V100Q157 117 140 117H20Q3 117 3 100Z" fill="#A8D3E6"/>
+    <path d="M22 90q10-4 20 0M104 98q10-4 20 0M64 106q10-4 20 0" fill="none" stroke-width="2.4"/>
+    <g transform="translate(36 52)">
+      <g fill="none" stroke-width="2.6"><path class="steam" d="M-9 -6q-5-6 0-12t0-12"/><path class="steam" style="animation-delay:.8s" d="M0 -6q-5-6 0-12t0-12"/><path class="steam" style="animation-delay:1.6s" d="M9 -6q-5-6 0-12t0-12"/></g>
+      <path d="M-18 0h36a18 12 0 0 1-36 0z" fill="#F2A497"/>
+    </g>
+    </g></svg>`,
+  ramen:`<svg viewBox="0 0 160 120" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="2" y="2" width="156" height="116" rx="22" fill="#FFFFFF"/>
+    <g transform="translate(112 12)"><g class="float"><path d="M28 12c0-1-.8-1.8-1.8-1.8H21L15 2h-2.4l3 8.2H10.4L8.6 8H7l1.2 4L7 16h1.6l1.8-2.2h5.2l-3 8.2H15l6-8.2h5.2c1 0 1.8-.8 1.8-1.8z" fill="#A8D3E6" stroke-width="2.4"/></g></g>
+    <g fill="none" stroke-width="2.6"><path class="steam" d="M58 44q-6-7 0-14t0-14"/><path class="steam" style="animation-delay:.8s" d="M74 44q-6-7 0-14t0-14"/><path class="steam" style="animation-delay:1.6s" d="M90 44q-6-7 0-14t0-14"/></g>
+    <path d="M108 34L70 58M114 40L74 60" fill="none"/>
+    <ellipse cx="74" cy="62" rx="50" ry="10" fill="#F6D27A"/>
+    <path d="M38 61q8 8 18 2q8 8 18 0q8 8 18 0q8 8 16 2" fill="none" stroke-width="2.4"/>
+    <circle cx="56" cy="60" r="7" fill="#fff"/><circle cx="56" cy="60" r="3.5" fill="#F6D27A" stroke-width="2"/>
+    <path d="M24 62Q26 102 74 104Q122 102 124 62Z" fill="#F2A497"/>
+    <path d="M40 80q34 10 68 0" fill="none" stroke="#fff" stroke-width="3"/>
+    <path d="M58 104v6h32v-6" fill="#F2A497"/>
+    </g></svg>`
+};
+
+/* ---------- itinerary data ---------- */
+// 行程內容與順序依使用者提供的圖片；固定：包車出發時間、餐廳預約時間、航班。其他時間依車程調整。
+const DAYS = [
+  {
+    date:'12/23', wd:'三', short:'抵達札幌', color:'var(--green)', light:'var(--green-l)', illus:'arrive',
+    title:'搭 JX318 抵達新千歲，入住札幌',
+    meta:['<span class="pill">10:20 臺中起飛</span>','<span class="pill">15:00 抵達</span>','<span class="pill">晚餐 20:15 已預約</span>'],
+    items:[
+      {t:'10:20', h:'JX318 起飛', d:['臺中國際機場第 2 航廈','Airbus A321neo，經濟艙'], mv:['plane','RMQ → CTS，約 3 小時 40 分']},
+      {t:'15:00', h:'抵達新千歲機場國際線航廈', d:['日本時間，比台灣快 1 小時']},
+      {t:'', h:'入住京急 EX Hotel 札幌', d:['住宿 12/23–12/28，共 5 晚']},
+      {t:'', h:'札幌慕尼黑聖誕市集', tags:['must'], via:['walk','約 10 分鐘'], d:['從飯店走地下步道「チ・カ・ホ」，札幌站往南直通大通站，全程室內有暖氣','大通公園 1、2 丁目','營業時間 11:00–21:00（最後點餐 20:45）','熱紅酒、小吃淺嚐就好，留胃給晚餐']},
+      {t:'20:15', h:'晚餐：炭火兜 ひつじ', map:['炭火兜 ひつじ','北海道産ひつじ肉 炭火兜 ひつじ 札幌'], tags:['booked'], via:['walk','約 15 分鐘'], d:['從市集走地下街「ポールタウン（Pole Town）」，大通站往南直通薄野站，全程室內有暖氣','從薄野站出來，再走約 3 分鐘（220 公尺）到店','營業時間 18:00–03:00','全席可吸菸']}
+    ]
+  },
+  {
+    date:'12/24', wd:'四', short:'洞爺湖・登別', color:'var(--coral)', light:'var(--coral-l)', illus:'onsen',
+    title:'洞爺湖、Lake Hill Farm、登別地獄谷、できたて屋、狸小路',
+    meta:['<span class="pill">包車 08:30 出發</span>','<span class="pill">4 人</span>'],
+    items:[
+      {t:'08:30', h:'京急 EX 酒店札幌出發', mv:['car','札幌 → 洞爺湖 Silo 展望台，約 2 小時']},
+      {t:'10:30–11:00', h:'雪地摩托車 長路線', tags:['reserve'], d:['在洞爺湖 Silo 展望台，約 30 分鐘（含講解）','自己騎乘，馳騁大雪原','成人 ¥8,000／人；後座同乘者（6 歲以上）¥4,000／人','若當天沒開放，跳過這項，直接看湖景、拍照']},
+      {t:'11:00–11:15', h:'雪地泛舟', tags:['reserve'], d:['雪地摩托車牽引泛舟艇，約 10 分鐘','成人 ¥2,000／人，最多同乘 5 人']},
+      {t:'11:15–11:40', h:'洞爺湖 Silo 展望台', d:['欣賞洞爺湖景色、拍照'], mv:['car','Silo 展望台 → Lake Hill Farm，約 10 分鐘']},
+      {t:'11:50–12:30', h:'Lake Hill Farm', d:['吃冰淇淋、甜點','欣賞雪景、拍照'], mv:['car','Lake Hill Farm → 洞爺湖溫泉街，約 20 分鐘']},
+      {t:'12:50–13:50', h:'洞爺湖溫泉街・麺や嵐午餐', map:['麺や嵐','麺や嵐 北海道虻田郡洞爺湖町洞爺湖温泉124'], d:['麺や嵐：洞爺湖溫泉 124，電話 090-2076-5244','營業 11:30–15:00、17:00–20:00，週五公休（週三偶爾休息）','只收現金，不能用 PayPay 等電子支付','湖畔散步、拍照'], mv:['car','洞爺湖 → 登別，約 1 小時 20 分']},
+      {t:'15:10–15:55', h:'登別地獄谷', tags:['must'], d:['欣賞火山地熱景觀','散步、拍照'], mv:['car','登別 → サッポロファクトリー，約 1 小時 45 分']},
+      {t:'17:40–18:40', h:'晚餐：できたて屋 サッポロファクトリー店', map:['できたて屋 サッポロファクトリー店','一夜干しと海鮮丼 できたて屋 サッポロファクトリー店'], d:['包車在サッポロファクトリー結束','一夜干定食和海鮮丼，每人約 ¥1,000–2,000','不接受訂位，現場排隊','營業 11:00–22:00（不定休，依商場）','中庭聖誕季有大型聖誕樹（以商場公告為準）'], mv:[['walk','約 15–20 分鐘'],['subway','巴士中心前站 → 大通站，東西線 1 站']]},
+      {t:'18:55–21:00', h:'狸小路商店街', d:['有屋頂的商店街，下雪也能慢慢逛','藥妝、伴手禮店集中，很多店開到晚上 9、10 點','逛完可搭地鐵南北線從大通站一站回札幌站，或步行約 15–20 分鐘回飯店']}
+    ]
+  },
+  {
+    date:'12/25', wd:'五', short:'旭山・美瑛', color:'var(--mizu)', light:'var(--mizu-l)', illus:'penguin',
+    title:'旭山動物園、美瑛小鎮、聖誕樹、白鬚瀑布、森林精靈露台',
+    meta:['<span class="pill">跟團一日遊</span>','<span class="pill">晚餐尚未訂位</span>'],
+    items:[
+      {t:'08:00', h:'司機依序上門接客人'},
+      {t:'08:30', h:'正式從札幌出發', mv:['tour','札幌 → 旭山動物園，2 小時']},
+      {t:'10:30–12:00', h:'旭山動物園・企鵝散步', tags:['must','self'], d:['門票自費','遊玩時間約 90 分鐘'], mv:['tour','旭山動物園 → 美瑛，30 分鐘']},
+      {t:'12:30–14:00', h:'美瑛小鎮・美瑛神社・自由午餐', tags:['self'], d:['午餐自費','停留時間約 90 分鐘'],
+        info:{title:'午餐：<a href="https://maps.app.goo.gl/7btQZACzpTp5NW4N8" target="_blank" rel="noopener">ファミリーレストラン だいまる</a>', list:['道地日式家庭餐廳，有拉麵、咖哩飯、豬排丼、烏龍麵，多用美瑛在地食材','必吃：咖哩烏龍麵、炸豬排','營業時間 11:00–15:00']},
+        mv:['tour','美瑛 → 聖誕樹，10 分鐘']},
+      {t:'14:10–14:40', h:'美瑛・聖誕樹', tags:['must'], d:['遊玩時間約 30 分鐘'], mv:['tour','聖誕樹 → 白鬚瀑布，30 分鐘']},
+      {t:'15:10–15:30', h:'白鬚瀑布', d:['遊玩時間約 20 分鐘'], mv:['tour','白鬚瀑布 → 精靈露台，約 50 分鐘']},
+      {t:'16:20–17:30', h:'森林精靈露台・冬季點燈', tags:['must'], d:['遊玩時間約 70 分鐘'], mv:['tour','精靈露台 → 札幌，2 小時']},
+      {t:'19:30', h:'抵達札幌市區', d:['札幌中央區內地址提供上門接送服務']},
+      {t:'20:00', h:'晚餐：Mia Angela 大丸札幌店', map:['Mia Angela 大丸札幌店','ミアアンジェラ 大丸札幌店'], tags:['reserve'], d:['RISTORANTE & BAR ITALIANA ミアアンジェラ','大丸札幌 8 樓，札幌市中央區北 5 條西 4 丁目 7','營業到 22:00，最後點餐 21:30']}
+    ]
+  },
+  {
+    date:'12/26', wd:'六', short:'頭大佛・藻岩山', color:'var(--yellow)', light:'var(--yellow-l)', illus:'ropeway',
+    title:'頭大佛、湯咖哩、支笏湖、定山溪、藻岩山景觀晚餐',
+    meta:['<span class="pill">包車 09:00–17:30</span>','<span class="pill">晚餐 19:00 已預約</span>'],
+    items:[
+      {t:'09:00', h:'札幌飯店出發', d:['09:00 札幌市區飯店接送'], mv:['car','約 45 分鐘']},
+      {t:'09:45–10:00', h:'真駒內瀧野靈園・摩艾石像', d:['拍照']},
+      {t:'10:00–10:45', h:'頭大佛殿', tags:['must'], d:['參拜費 1,000 日圓／人','12 月開放時間 10:00–15:00','可以逛旁邊的ロタンダカフェ&ストア（冬季 10:00–15:00），有頭大佛周邊商品和安藤忠雄簽名書'], mv:['car','約 20 分鐘']},
+      {t:'11:05–12:05', h:'奧芝商店 眞樂莊・湯咖哩午餐', map:['奧芝商店 眞樂莊','奥芝商店 眞樂荘 札幌市南区真駒内本町6-1-1'], d:['札幌市南區真駒內本町 6-1-1','營業時間 11:00–15:00（不定休）'], mv:['car','約 1 小時']},
+      {t:'13:05–14:40', h:'支笏湖', tags:['must'], d:['湖畔散策、拍照、自由活動','北海道千歲市支笏湖溫泉'], mv:['car','支笏湖 → 定山溪，約 1 小時 10 分']},
+      {t:'15:50–16:50', h:'定山溪溫泉街', d:['溫泉街散步、泡足湯','北海道札幌市南區定山溪溫泉','二見公園施工中，冬季走不到二見吊橋'], mv:['car','定山溪 → 藻岩山纜車站，約 40 分鐘']},
+      {t:'17:30', h:'藻岩山纜車站取票，搭纜車上山', tags:['must'], d:['包車在藻岩山纜車山麓站結束','先到 4 樓售票處出示預約證明取票，最晚 18:30 前','傍晚纜車可能要排隊約 1 小時，提早到預留時間','搭空中纜車到中腹，再轉迷你纜車到山頂，約 15 分鐘一班','上山後可以先在山頂展望台看夜景']},
+      {t:'19:00–20:30', h:'THE JEWELS 藻岩山景觀餐廳', map:['THE JEWELS','THE JEWELS もいわ山 札幌'], tags:['must','booked'], d:['藻岩山山頂，札幌市中央區伏見 5 丁目 3-7','已預約 2026/12/26 19:00，用餐約 1.5 小時','餐後搭纜車下山，欣賞札幌夜景，再自行返回飯店']}
+    ]
+  },
+  {
+    date:'12/27', wd:'日', short:'市區自由行', color:'var(--green)', light:'var(--green-l)', illus:'free',
+    title:'札幌市區自由活動、トリトン午餐',
+    meta:['<span class="pill">自由活動</span>'],
+    items:[
+      {t:'11:00', h:'午餐：回転寿しトリトン 北8条光星店', map:['回転寿しトリトン 北8条光星店','回転寿しトリトン 北8条光星店 札幌市東区北8条東5丁目19-1'], via:['walk','飯店 → トリトン，約 15 分鐘'], d:['札幌市東區北 8 條東 5 丁目 19-1','營業 11:00–22:00（最後點餐 21:30）','離札幌市區最近的トリトン分店','人氣迴轉壽司，週日中午常要排隊，建議 11:00 開門就到']}
+    ]
+  },
+  {
+    date:'12/28', wd:'一', short:'市區・回程', color:'var(--coral)', light:'var(--coral-l)', illus:'ramen',
+    title:'北海道神宮、Bit Better 午餐、搭機回台',
+    meta:['<span class="pill">回程日</span>','<span class="pill">16:00 起飛</span>'],
+    items:[
+      {t:'09:00–09:30', h:'飯店退房、寄放行李', d:['京急 EX Hotel 札幌','退房後將行李寄放在飯店']},
+      {t:'09:45–10:50', h:'北海道神宮', map:['北海道神宮','北海道神宮 札幌市中央区宮ケ丘474'], via:['taxi','飯店 → 北海道神宮，約 15 分鐘'], d:['參拜、拍照，欣賞境內雪景','可以買梅酒','11–12 月開門時間 07:00–16:00']},
+      {t:'11:00–11:50', h:'Bit Better・漢堡排午餐', map:['Bit Better','Bit Better ビットベター 札幌市中央区宮の森1条10-3-23'], via:['walk','北海道神宮 → Bit Better，約 5 分鐘'], d:['漢堡排專門店，肉排用洞爺湖和牛加北海道豬肉','札幌市中央區宮の森 1 條 10-3-23 ヒルズラボ 2F','午餐 11:00–15:00（最後點餐 14:30），週三公休','電話 011-215-4405']},
+      {t:'12:05–12:30', h:'飯店領取行李', via:['taxi','Bit Better → 飯店，約 15 分鐘'], d:['京急 EX Hotel 札幌']},
+      {t:'13:30–16:00', h:'辦理報到、安檢、出境及登機', via:['train','快速 Airport 約 37 分鐘'], d:['12:30 從 JR 札幌站搭到新千歲機場站','建議最晚 13:30 抵達機場，預留充足時間']},
+      {t:'16:00', h:'JX319 新千歲機場起飛', d:['搭乘回台班機'], mv:['plane','CTS → RMQ，約 4 小時 55 分']},
+      {t:'19:55', h:'抵達臺中國際機場第 2 航廈', d:['結束愉快的北海道之旅！']}
+    ]
+  }
+];
+
+/* ---------- render ---------- */
+const tabsEl = document.getElementById('tabs');
+const panel = document.getElementById('dayPanel');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+const chip = (m, txt) => {
+  let body = '';
+  if (txt) {
+    const k = txt.lastIndexOf('，');
+    body = k >= 0 && txt.length - k <= 14
+      ? `<span class="tx">${txt.slice(0, k + 1)}<span class="tm">${txt.slice(k + 1)}</span></span>`
+      : txt.length <= 14 ? `<span class="tx"><span class="tm">${txt}</span></span>` : `<span class="tx">${txt}</span>`;
+  }
+  return `<span class="chip ${m}"><span class="ic">${ICON[m]}</span><b>${MODE[m]}</b>${body}</span>`;
+};
+
+DAYS.forEach((d, i) => {
+  const b = document.createElement('button');
+  b.className = 'tab' + (d.free ? ' free' : ''); b.type = 'button';
+  b.setAttribute('role', 'tab'); b.id = 'tab' + i;
+  b.setAttribute('aria-controls', 'dayPanel');
+  b.style.setProperty('--c', d.color);
+  b.innerHTML = `<span class="d">${d.date}</span><span class="w">（${d.wd}）</span><span class="t">${d.short}</span>`;
+  b.addEventListener('click', () => show(i, true));
+  b.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + DAYS.length) % DAYS.length;
+      show(n, true); document.getElementById('tab' + n).focus();
+    }
+  });
+  tabsEl.appendChild(b);
+});
+
+function show(i, animate) {
+  const d = DAYS[i];
+  [...tabsEl.children].forEach((t, k) => {
+    t.setAttribute('aria-selected', k === i ? 'true' : 'false');
+    t.tabIndex = k === i ? 0 : -1;
+  });
+  panel.setAttribute('aria-labelledby', 'tab' + i);
+  panel.style.setProperty('--c', d.color);
+  panel.style.setProperty('--cl', d.light);
+  if (d.free) {
+    panel.innerHTML = `<div class="card day-head"><div><span class="pill">第 ${i + 1} 天　${d.date}（${d.wd}）</span><h3>${d.title}</h3><p class="free-note">${d.note}</p></div>${ILLUS.free}</div>`;
+    if (animate && !reduce.matches) { panel.classList.remove('bounce'); void panel.offsetWidth; panel.classList.add('bounce'); }
+    return;
+  }
+  let n = 0, carry = null;
+  const items = d.items.map(it => {
+    const out = carry && !it.via ? {...it, via: carry} : it;
+    carry = it.mv || null;
+    return out;
+  });
+  const lis = items.map(it => {
+    const tags = it.tags || [];
+    const must = tags.includes('must');
+    const vias = it.via ? (Array.isArray(it.via[0]) ? it.via : [it.via]) : [];
+    let html = vias.length ? `<li class="mv" style="--i:${n++}">${vias.map(v => chip(v[0], v[1])).join('')}</li>` : '';
+    html += `<li class="ti${must ? ' must' : ''}" style="--i:${n++}">
+      <span class="dot">${must ? ICON.star : ''}</span>
+      <div class="ti-card">
+        <div class="ti-head">${it.t ? `<span class="time">${it.t}</span>` : ''}${tags.map(t => BADGE[t]).join('')}</div>
+        <h4>${it.map ? it.h.replace(it.map[0], `<a class="maplink" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(it.map[1])}" target="_blank" rel="noopener">${it.map[0]}</a>`) : it.h}</h4>
+        ${it.d ? `<ul>${it.d.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+        ${it.info ? `<div class="infobox"><b>${it.info.title}</b><ul>${it.info.list.map(x => `<li>${x}</li>`).join('')}</ul></div>` : ''}
+      </div></li>`;
+    return html;
+  }).join('');
+  panel.innerHTML = `
+    <div class="card day-head">
+      <div>
+        <span class="pill">第 ${i + 1} 天　${d.date}（${d.wd}）</span>
+        <h3>${d.title}</h3>
+        <div class="meta">${d.meta.join('')}</div>
+      </div>
+      ${ILLUS[d.illus]}
+      ${d.tip ? `<div class="tip">${d.tip}</div>` : ''}
+    </div>
+    <ol class="tl">${lis}</ol>`;
+  if (animate && !reduce.matches) {
+    panel.classList.remove('bounce'); void panel.offsetWidth; panel.classList.add('bounce');
+  }
+}
+(function () {
+  const j = new Date(Date.now() + 9 * 3600e3);
+  const k = j.getUTCFullYear() === 2026 ? `${j.getUTCMonth() + 1}/${j.getUTCDate()}` : '';
+  const idx = DAYS.findIndex(d => d.date === k);
+  show(idx >= 0 ? idx : 0, false);
+})();
+
+/* ---------- snow ---------- */
+(function () {
+  const g = document.getElementById('snow'); if (!g) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  for (let k = 0; k < 22; k++) {
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', (k * 37 + 11) % 400);
+    c.setAttribute('cy', -10);
+    c.setAttribute('r', 2 + (k % 3) * 0.9);
+    c.setAttribute('fill', '#fff');
+    c.setAttribute('class', 'flake');
+    c.style.animationDuration = (7 + (k % 5) * 1.6) + 's';
+    c.style.animationDelay = (-((k * 0.73) % 9)) + 's';
+    c.style.setProperty('--dx', ((k % 4) - 1.5) * 12 + 'px');
+    g.appendChild(c);
+  }
+})();
+
+/* ---------- packing ---------- */
+(function () {
+  const GROUPS = [
+    ['證件・錢', [
+      ['passport','護照','效期要涵蓋回國日'],
+      ['ticket','電子機票、訂房確認'],
+      ['vjw','Visit Japan Web 入境 QR Code','出發前在網站填好'],
+      ['jpy','日圓現金'],
+      ['card','信用卡'],
+      ['net','上網 eSIM 或網卡'],
+      ['ins','旅遊平安險、不便險']
+    ]],
+    ['防寒衣物', [
+      ['down','羽絨外套','最好防風、防潑水'],
+      ['heat','發熱衣褲'],
+      ['mid','毛衣或刷毛中層'],
+      ['glove','手套','可滑手機的款式比較方便'],
+      ['hat','毛帽、圍巾或脖圍'],
+      ['socks','厚襪子'],
+      ['boots','防滑雪靴或鞋底冰爪','札幌市區人行道常結冰']
+    ]],
+    ['電子用品', [
+      ['phone','手機與充電線'],
+      ['bank','行動電源','只能放隨身行李，不能託運'],
+      ['plug','充電器','日本插座和台灣一樣，不用轉接頭']
+    ]],
+    ['日用品', [
+      ['kairo','暖暖包'],
+      ['lip','護唇膏、乳液','北海道冬天很乾'],
+      ['med','常備藥品'],
+      ['sun','太陽眼鏡','雪地反光很刺眼'],
+      ['bag','折疊購物袋','裝伴手禮']
+    ]]
+  ];
+  const ALL = GROUPS.flatMap(g => g[1].map(x => x[0]));
+  const KEY = 'sapporo-packing-v1';
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  const listEl = document.getElementById('pList');
+  listEl.innerHTML = GROUPS.map(([name, items]) => `<p class="pgroup">${name}</p><ul class="plist">${items.map(([id, t, note]) =>
+    `<li><label><input type="checkbox" data-id="${id}"><span class="box">${ICON.check}</span><span class="txt">${t}${note ? `<small>${note}</small>` : ''}</span></label></li>`).join('')}</ul>`).join('');
+
+  function paint() {
+    listEl.querySelectorAll('input').forEach(i => { i.checked = !!done[i.dataset.id]; });
+    const n = ALL.filter(id => done[id]).length;
+    document.getElementById('pBar').style.width = (n / ALL.length * 100) + '%';
+    document.getElementById('pTxt').textContent = `${n} / ${ALL.length}`;
+  }
+
+  // 每個人的勾選各自分開；登入時存在自己的帳號裡，換裝置也在
+  let ref = null, saving = false, dirty = false;
+  async function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    if (!ref) return;
+    if (saving) { dirty = true; return; }
+    saving = true;
+    try { await ref.set({done: {...done}}); } catch (e) { ref = null; }
+    saving = false;
+    if (dirty) { dirty = false; save(); }
+  }
+  listEl.addEventListener('change', e => {
+    const id = e.target.dataset.id; if (!id) return;
+    if (e.target.checked) done[id] = true; else delete done[id];
+    paint(); save();
+  });
+  document.getElementById('pReset').addEventListener('click', () => {
+    if (!Object.keys(done).length) return;
+    if (!confirm('清除所有勾選？')) return;
+    done = {}; paint(); save();
+  });
+  paint();
+
+  (async () => {
+    const use = n => (window.claude && typeof window.claude.use === 'function') ? window.claude.use(n).catch(() => null) : Promise.resolve(null);
+    const [db, user] = await Promise.all([use('db'), use('user')]);
+    if (!db || !user) return;
+    const uid = await user.id().catch(() => null);
+    if (!uid) return;
+    const r = db.doc('data/users/' + uid + '/packing');
+    try {
+      const snap = await r.get();
+      if (snap.exists && snap.data().done) { done = {...snap.data().done}; paint(); try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+      ref = r;
+      if (!snap.exists && Object.keys(done).length) save();
+    } catch (e) {}
+  })();
+})();
+
+/* ---------- fund ---------- */
+// Firebase：把 Firestore 包成頁面原本使用的簡單介面
+async function firebaseDb(cfg, code) {
+  const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
+  const [{initializeApp}, {getAuth, signInAnonymously}, fs] = await Promise.all([
+    import(base + 'firebase-app.js'), import(base + 'firebase-auth.js'), import(base + 'firebase-firestore.js')]);
+  const app = initializeApp(cfg);
+  await signInAnonymously(getAuth(app));
+  let fdb;
+  try { fdb = fs.initializeFirestore(app, {localCache: fs.persistentLocalCache()}); } catch (e) { fdb = fs.getFirestore(app); }
+  const root = ['trips', code];
+  const wrap = d => ({id: d.id, exists: d.exists(), data: () => d.data(), metadata: d.metadata});
+  // 離線時寫入會先存在手機，等有網路再上傳；這裡最多等 1.5 秒就讓畫面繼續
+  const soon = pr => Promise.race([pr, new Promise(r => setTimeout(r, 1500))]);
+  return {
+    collection(name) {
+      const col = fs.collection(fdb, ...root, name);
+      return {
+        orderBy(f) { return {onSnapshot: (cb, err) => fs.onSnapshot(fs.query(col, fs.orderBy(f)), snap => cb({docs: snap.docs.map(wrap), metadata: snap.metadata}), err)}; },
+        add: d => soon(fs.addDoc(col, d)),
+        doc: id => ({delete: () => soon(fs.deleteDoc(fs.doc(col, id)))})
+      };
+    },
+    doc(path) {
+      const ref = fs.doc(fdb, ...root, ...path.split('/'));
+      return {onSnapshot: (cb, err) => fs.onSnapshot(ref, d => cb(wrap(d)), err), set: d => soon(fs.setDoc(ref, d))};
+    }
+  };
+}
+function askTripCode() {
+  const KEY = 'sapporo-trip-code';
+  let saved = '';
+  try { saved = localStorage.getItem(KEY) || ''; } catch (e) {}
+  if (saved) return Promise.resolve(saved);
+  const fund = document.getElementById('fund'), box = document.getElementById('fCodeBox');
+  fund.classList.add('needcode'); box.hidden = false;
+  return new Promise(resolve => {
+    document.getElementById('fCodeOk').addEventListener('click', () => {
+      const v = document.getElementById('fCode').value.trim(), m = document.getElementById('fCodeMsg');
+      if (!/^[A-Za-z0-9_-]{16,64}$/.test(v)) { m.hidden = false; m.textContent = '代碼要 16–64 個英文、數字、- 或 _'; return; }
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      fund.classList.remove('needcode'); box.hidden = true; resolve(v);
+    });
+  });
+}
+(function () {
+  const $ = id => document.getElementById(id);
+  const DATES = DAYS.map(d => d.date);
+  let kind = 'out', rows = [], settings = {}, db = null, canWrite = true;
+  const yen = n => '¥' + Math.round(n).toLocaleString('ja-JP');
+  const msg = t => { $('fMsg').hidden = !t; $('fMsg').textContent = t || ''; };
+
+  $('fDate').innerHTML = DATES.map(d => `<option>${d}</option>`).join('');
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    kind = b.dataset.kind;
+    document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    $('fName').placeholder = kind === 'in' ? '項目，例如 每人先繳' : '項目，例如 晚餐';
+  }));
+
+  function render() {
+    const inSum = rows.filter(r => r.kind === 'in').reduce((a, r) => a + r.amount, 0);
+    const outSum = rows.filter(r => r.kind !== 'in').reduce((a, r) => a + r.amount, 0);
+    const left = inSum - outSum, ppl = settings.people > 0 ? settings.people : 0;
+    $('fIn').textContent = yen(inSum); $('fInT').textContent = '';
+    $('fOut').textContent = yen(outSum); $('fOutT').textContent = '';
+    $('fLeft').textContent = (left < 0 ? '-' : '') + yen(Math.abs(left)); $('fLeftT').textContent = left < 0 ? '公費不夠，需要補錢' : '';
+    $('fLeftBox').classList.toggle('neg', left < 0);
+    $('fPer').textContent = ppl ? yen(outSum / ppl) : '—'; $('fPerT').textContent = ppl ? '' : '先填人數';
+    const list = $('fList'); list.textContent = '';
+    if (!rows.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = '還沒有紀錄'; list.append(p); return; }
+    DATES.forEach(d => {
+      const day = rows.filter(r => r.date === d); if (!day.length) return;
+      const h = document.createElement('div'); h.className = 'fday';
+      const a = document.createElement('span'); a.textContent = d;
+      const sub = document.createElement('span'); sub.textContent = '支出 ' + yen(day.filter(r => r.kind !== 'in').reduce((x, r) => x + r.amount, 0));
+      h.append(a, sub); list.append(h);
+      day.forEach(r => {
+        const row = document.createElement('div'); row.className = 'fitem' + (r.kind === 'in' ? ' in' : '');
+        const tag = document.createElement('span'); tag.className = 'bd ' + (r.kind === 'in' ? 'self' : 'public'); tag.textContent = r.kind === 'in' ? '收公費' : '公費';
+        const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.item;
+        const am = document.createElement('span'); am.className = 'am'; am.textContent = (r.kind === 'in' ? '+' : '') + yen(r.amount);
+        row.append(tag, nm, am);
+        if (canWrite && db) {
+          const del = document.createElement('button'); del.className = 'del'; del.type = 'button'; del.textContent = '×';
+          del.setAttribute('aria-label', '刪除 ' + r.item);
+          del.addEventListener('click', async () => {
+            if (!confirm(`刪除「${r.item}」${yen(r.amount)}？`)) return;
+            try { await db.collection('expenses').doc(r.id).delete(); } catch (e) { msg('刪除失敗，請稍後再試'); }
+          });
+          row.append(del);
+        }
+        list.append(row);
+      });
+    });
+  }
+
+  function readOnly(text) {
+    canWrite = false;
+    $('fForm').querySelectorAll('input,select,button').forEach(el => el.disabled = true);
+    $('fPeople').disabled = true;
+    msg(text); render();
+  }
+
+  render();
+  $('fList').firstChild.textContent = '載入中…';
+
+  (async () => {
+    let dbNs = null, user = null;
+    if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
+      const code = await askTripCode();
+      try { dbNs = await firebaseDb(window.FIREBASE_CONFIG, code); }
+      catch (e) { $('fList').innerHTML = '<p class="empty">連不上公費資料庫，請確認網路或 Firebase 設定。</p>'; }
+      const r = document.getElementById('fCodeReset'); r.hidden = false;
+      r.addEventListener('click', () => { if (!confirm('更換旅行代碼？')) return; try { localStorage.removeItem('sapporo-trip-code'); } catch (e) {} location.reload(); });
+      if (!dbNs) return;
+    }
+    if (!dbNs) { $('fList').innerHTML = ''; readOnly('公費功能還沒設定 Firebase，請先在 firebase-config.js 貼上設定。'); return; }
+    db = dbNs;
+    const w = user ? await user.can('data.write') : null;
+    if (w === false) readOnly('你目前只能查看公費紀錄。');
+
+    let timer = setTimeout(() => { if (!rows.length) { $('fList').innerHTML = '<p class="empty">暫時連不上公費紀錄，請稍後再開。</p>'; } }, 10000);
+    db.collection('expenses').orderBy('createdAt').onSnapshot(snap => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      rows = snap.docs.map(d => ({id: d.id, ...d.data()})).filter(r => typeof r.amount === 'number');
+      render();
+    }, () => { clearTimeout(timer); $('fList').innerHTML = '<p class="empty">公費紀錄讀取失敗，請重新整理。</p>'; });
+    db.doc('fund/settings').onSnapshot(snap => {
+      settings = snap.exists ? snap.data() : {};
+      if (document.activeElement !== $('fPeople')) $('fPeople').value = settings.people || '';
+      render();
+    }, () => {});
+
+    const saveSet = async () => {
+      const people = parseInt($('fPeople').value, 10) || 0;
+      if (people === (settings.people || 0)) return;
+      try { await db.doc('fund/settings').set({people}); }
+      catch (e) { if (e && e.code === 'invalid_argument') readOnly('你目前只能查看公費紀錄。'); }
+    };
+    $('fPeople').addEventListener('change', saveSet);
+
+    $('fAdd').addEventListener('click', async () => {
+      const item = $('fName').value.trim(), amount = Math.round(Number($('fAmt').value));
+      if (!item) { msg('請填項目'); $('fName').focus(); return; }
+      if (!(amount > 0)) { msg('請填金額'); $('fAmt').focus(); return; }
+      msg(''); $('fAdd').disabled = true;
+      try {
+        await db.collection('expenses').add({date: $('fDate').value, kind, item, amount, createdAt: Date.now()});
+        $('fName').value = ''; $('fAmt').value = '';
+      } catch (e) {
+        if (e && e.code === 'invalid_argument') readOnly('你目前只能查看公費紀錄。');
+        else if (e && e.code === 'quota_exceeded') msg('紀錄已達上限，請先刪除一些舊紀錄');
+        else msg('新增失敗，請稍後再試');
+      } finally { if (canWrite) $('fAdd').disabled = false; }
+    });
+  })();
+
+  // default date: today in Japan if it falls on the trip
+  const j = new Date(Date.now() + 9 * 3600e3);
+  const k = `${j.getUTCMonth() + 1}/${j.getUTCDate()}`;
+  if (j.getUTCFullYear() === 2026 && DATES.includes(k)) $('fDate').value = k;
+})();
+
+/* ---------- nav ---------- */
+const navBtns = [...document.querySelectorAll('.nav button')];
+function setOn(id) { navBtns.forEach(b => b.classList.toggle('on', b.dataset.go === id)); }
+function go(id, animate) {
+  document.querySelectorAll('main > section').forEach(sec => {
+    const on = sec.id === id;
+    sec.classList.toggle('on', on);
+    sec.classList.remove('enter');
+    if (on && animate && !reduce.matches) { void sec.offsetWidth; sec.classList.add('enter'); }
+  });
+  setOn(id);
+  window.scrollTo({top:0, behavior:'auto'});
+  try { history.replaceState(null, '', '#' + id); } catch (e) {}
+}
+navBtns.forEach(b => b.addEventListener('click', () => go(b.dataset.go, true)));
+(function () {
+  const h = location.hash.slice(1);
+  if (h && document.getElementById(h) && navBtns.some(b => b.dataset.go === h)) go(h, false);
+})();
+
+/* ---------- PWA ---------- */
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</body>
+</html>
